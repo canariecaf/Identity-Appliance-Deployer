@@ -156,8 +156,9 @@ function formSubmit() {
                                             <table width="100%" border=1>
                                         
    <tr bgcolor="#CCCCCC"><td colspan="2"><b><font size="+1">Your eduroam Domain</font><b></td></tr>
-                                            <tr><td colspan="1">
-                                            An eduroam 'userid' looks like this: USERID @ SOMEDOMAIN.CA.  <br>What occurs after the '@' will be used as the realm setting in the configuration files and what your end users should use for fully qualified ID.
+                                            <tr><td colspan="1" align="right">
+                                            An eduroam 'userid' looks like this: USERID @ SOMEDOMAIN.CA.  <br>What is your domain users will use?:
+
                                        
                                           </td><td>
                                             <input id="my_eduroamDomain" type="text" placeholder="" onchange="update()"></td></tr>
@@ -165,40 +166,43 @@ function formSubmit() {
 <tr bgcolor="#CCCCCC"><td colspan="2"><b><font size="+1">Your Active Directory settings</font><b></td></tr>
                                             <tr><td colspan="1">
                                             To authenticate users on your behalf, this machine needs to join your AD domain.<br>
-                                            The machine will recognize the AD server as a Kerberos server and also be considered a host that can authenticate users with the MSCHAPv2 protocol.
+ Winbind and SAMBA are used to authenticate users with the MSCHAPv2 protocol.
 
                                           </td><td></tr>
                                            <tr>
 <td colspan="2" align="right">
-Kerberos Library Default Realm:<input id="krb5_libdef_default_realm" type="text" placeholder="DOMAIN.LOCAL" onchange="update()"><br>
-Kerberos Default Realm:<input id="krb5_realms_def_dom" type="domain.local" placeholder="e.g. domain.local" onchange="update()"><br>
-Kerberos Domain realm:<input id="krb5_domain_realm" type="domain.ca" placeholder="e.g. domain.ca" onchange="update()"><br>
-SAMBA workgroup(realm shortname:)<input id="smb_workgroup" type="text" placeholder="e.g. DOMAIN" onchange="update()"><br>
-This machine name in Active Directory:<input id="smb_netbios_name" type="text" placeholder="e.g. APP1" onchange="update()"><br>
+<table><tr><td colspan="1" align="left"><font size="-1">WinBIND krb5 settings</font></td></tr></table>
+Active Directory Default AD DOMAIN:<input id="krb5_libdef_default_realm" type="text" placeholder="DOMAIN.LOCAL" onchange="update()"><br>
+AD Default AD DOMAIN lowercased:<input id="krb5_realms_def_dom" type="domain.local" placeholder="e.g. domain.local" onchange="update()"><br>
+Active Directory Internet Domain:<input id="krb5_domain_realm" type="domain.ca" placeholder="e.g. domain.ca" onchange="update()"><br>
+<hr>
+<table><tr><td colspan="1" align="left"><font size="-1">SAMBA settings</font></td></tr></table>
+Domain-name pre-windows2000/NETBIOS Name:<input id="smb_workgroup" type="text" placeholder="e.g. DOMAIN" onchange="update()"><br>
+Legacy NETBIOS name in Active Directory:<input id="smb_netbios_name" type="text" placeholder="e.g. APP1" onchange="update()"><br>
 IP Address of your Primary AD DC:<input id="smb_passwd_svr" type="text" placeholder="e.g. 1.2.3.4" onchange="update()"><br>
-SAMBA authentication realm<input id="smb_realm" type="text" placeholder="e.g. domain.ca" onchange="update()"><br>
+SAMBA internet Domain-name:<input id="smb_realm" type="text" placeholder="e.g. domain.ca" onchange="update()"><br>
 
 </td></tr>
 
 <tr bgcolor="#CCCCCC"><td colspan="2"><b><font size="+1">Your RADIUS configuration</font><b></td></tr>
                                             <tr><td colspan="1">
-                                            This FreeRADIUS install will behave as both a proxy and server to accept clients to connect.<br>
+                                            FreeRADIUS will behave as both a proxy and server for local clients.<br>
                                             A Client can be anything that talks the RADIUS protocol, including other RADIUS servers, access points, laptops, and/or smart phones.<br>
-                                            You will be provided a shared secret and can enter it here.<br>
-                                            It is expected that two other 'clients' will be added and is what the templates are expecting.<br>
 
                                            
                                           </td><td></tr>
                                            <tr>
 <td colspan="2" align="right">
 
-eduroam domain people see my users from:<input id="freeRADIUS_realm" type="text" placeholder="" onchange="update()"><br>
-Locally, the realm I will accept:<input id="freeRADIUS_pxycfg_realm" type="text" placeholder="" onchange="update()"><br>
-Your Passphrase to your upstream eduroam servers:<input id="freeRADIUS_cdn_prod_passphrase" type="text" placeholder="" 
+domain used for eduroam:<input id="freeRADIUS_realm" type="text" placeholder="" onchange="update()"><br>
+Local realm,(usually the same as above):<input id="freeRADIUS_pxycfg_realm" type="text" placeholder="" onchange="update()"><br>
+Passphrase to your upstream eduroam servers:<input id="freeRADIUS_cdn_prod_passphrase" type="text" placeholder="" 
 onchange="if(this.value.indexOf('#')>-1){alert(PoundSignError);}else{update();}"><br>
+<hr>
 Access Point #1 IP Address:<input id="freeRADIUS_clcfg_ap1_ip" type="text" placeholder="" onchange="update()"><br>
 Access Point #1 Passphrase(min 8 char):<input id="freeRADIUS_clcfg_ap1_secret" type="text" placeholder="" 
 onchange="if(this.value.indexOf('#')>-1){alert(PoundSignError);}else{update();}"><br>
+<hr>
 Access Point #2 IP Address:<input id="freeRADIUS_clcfg_ap2_ip" type="text" placeholder="" onchange="update()"><br>
 Access Point #1 Passphrase(min 8 char):<input id="freeRADIUS_clcfg_ap2_secret" type="text" placeholder="" 
 onchange="if(this.value.indexOf('#')>-1){alert(PoundSignError);}else{update();}"><br>
@@ -212,10 +216,8 @@ onchange="if(this.value.indexOf('#')>-1){alert(PoundSignError);}else{update();}"
 
    <tr bgcolor="#CCCCCC"><td colspan="2"><b><font size="+1">Information for the TLS Generation</font><b></td></tr>
                                             <tr><td colspan="1">
-                                            FreeRADIUS will automatically generate a self signed Certificate Authority(CA) and create a complete TLS based test environment.  To do so, we need to collect a few details about your location and organization name.<br> 
-                                            Since this is a self-signed environment, we will share the information between them.
-                                       
-                                           
+                                            eduroam needs TLS for encrypting tunnels between your server and the person authenticating. Please provide details to create a self signed Certificate Authority(CA) and Server certificate.
+<br> 
                                           </td><td></tr>
                                            <tr>
 <td colspan="2" align="right">
