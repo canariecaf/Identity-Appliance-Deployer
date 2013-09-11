@@ -369,12 +369,28 @@ deployCustomizations() {
 
 # disable SELinux as it interferes with the winbind process.
 
-cp ${templatePath}/etc/sysconfig/selinux.template /etc/sysconfig/selinux 
+	echo "updating SELinux to disable it" >> ${statusFile} 2>&1 
+	cp ${templatePath}/etc/sysconfig/selinux.template /etc/sysconfig/selinux 
+
+# add radiusd to group wbpriv 
+	echo "adding user radiusd to WINBIND/SAMBA privilege group wbpriv" >> ${statusFile} 2>&1 
+	usermod -a -G wbpriv radiusd
+
 
 # tweak winbind to permit proper authentication traffic to proceed
 # without this, the NTLM call out for freeRADIUS will not be able to process requests
 	chmod ugo+rx /var/run/winbindd
 				
+
+# disable iptables on runlevels 3,4,5 for reboot and then disable it right now for good measure
+
+	echo "Disabling iptables" >> ${statusFile} 2>&1 
+	${ckCmd} --level 3 iptables off
+	${ckCmd} --level 4 iptables off
+	${ckCmd} --level 5 iptables off
+	/sbin/service iptables stop
+
+
 echo "Start Up processes completed" >> ${statusFile} 2>&1 
 
 	
