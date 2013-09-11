@@ -65,6 +65,20 @@ HELP="
 
 mdSignerFinger="12:60:D7:09:6A:D9:C1:43:AD:31:88:14:3C:A8:C4:B7:33:8A:4F:CB"
 
+#
+# bootstrapping step from minimal install
+#
+if [ -f "/usr/bin/host" -a -f "/usr/bin/dos2unix" ]
+then
+	# we do nothing, just making sure it's there
+	echo ""
+else
+	echo -e "\n\nAdding a few packages that we will use during the installation process..."
+	sleep 3;
+	yum -y install bind-utils dos2unix
+
+fi
+
 # Set cleanUp to 0 (zero) for debugging of created files
 cleanUp=0
 
@@ -123,6 +137,7 @@ tmp1sstr="These are the installers settings it will run with:\n\n"
 # read config file
 if [ -f "${Spath}/config" ]
 then
+	dos2unix ${Spath}/config
 	. ${Spath}/config		# dynamically (or by hand) editted config file
 	. ${Spath}/config_descriptions	# descriptive terms for each element - uses associative array cfgDesc[varname]
 fi
@@ -493,14 +508,14 @@ validateConfig() {
 	eval set -- "${vc_attribute_list}"
 	while [ $# -gt 0 ]
 	do
-		echo "DO======${tmpVal}===== ---- $1, \$$1, ${!1}"
+			#echo "DO======${tmpVal}===== ---- $1, \$$1, ${!1}"
 		if [ "XXXXXX" ==  "${!1}XXXXXX" ]
         	then
 			#echo "##### $1 is ${!1}"
-			echo "########EMPTYEMPTY $1 is empty"
+			#echo "########EMPTYEMPTY $1 is empty"
 			tmpBailIfHasAny="${tmpBailIfHasAny} $1 "
 		else
-			echo "ha"
+			#echo "ha"
 			tmpString=" `echo "${cfgDesc[$1]}"`";
 			tmpval=" `echo "${!1}"`";
 			#settingsHumanReadable=" ${settingsHumanReadable}  ${tmpString}:  ${!1}\n"
@@ -516,9 +531,12 @@ validateConfig() {
 		then
 			echo ""
 		else
-			echo "Config variables failed to validate from file: ${Spath}/config"
-			echo "***Please fix these variables as they were detected as zero length:${tmpBailIfHasAny}";
+			echo -e "\n\nDoing pre-flight check..\n"
+			sleep 2;
+			echo -e "Discovered some required field as blank from file: ${Spath}/config\n"
+			echo -e " ${tmpBailIfHasAny}";
 			echo ""	
+			echo -e "Please check out the file for the above empty attributes. If needed, regenerate from the config tool at ~/www/index.html\n\n"
 			exit 1;
 		fi
 
