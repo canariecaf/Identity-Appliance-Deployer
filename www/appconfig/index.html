@@ -36,7 +36,8 @@ function update()
 
         }else{ 
             $("#freeRADIUS_realm").val($("#my_eduroamDomain").val());    
-            $("#freeRADIUS_pxycfg_realm").val($("#my_eduroamDomain").val());  
+            $("#freeRADIUS_pxycfg_realm").val($("#krb5_libdef_default_realm").val());  
+            $("#smb_realm").val($("#krb5_libdef_default_realm").val());  
 
 
         };
@@ -180,7 +181,7 @@ Active Directory Internet Domain:<input id="krb5_domain_realm" type="domain.ca" 
 Domain-name pre-windows2000/NETBIOS Name:<input id="smb_workgroup" type="text" placeholder="e.g. DOMAIN" onchange="update()"><br>
 Legacy NETBIOS name in Active Directory:<input id="smb_netbios_name" type="text" placeholder="e.g. APP1" onchange="update()"><br>
 IP Address of your Primary AD DC:<input id="smb_passwd_svr" type="text" placeholder="e.g. 1.2.3.4" onchange="update()"><br>
-SAMBA internet Domain-name:<input id="smb_realm" type="text" placeholder="e.g. domain.ca" onchange="update()"><br>
+SAMBA Active Directory DOMAIN:<input id="smb_realm" type="text" placeholder="e.g. DOMAIN.LOCAL" onchange="update()"><br>
 
 </td></tr>
 
@@ -195,7 +196,7 @@ SAMBA internet Domain-name:<input id="smb_realm" type="text" placeholder="e.g. d
 <td colspan="2" align="right">
 
 domain used for eduroam:<input id="freeRADIUS_realm" type="text" placeholder="" onchange="update()"><br>
-Local realm,(usually the same as above):<input id="freeRADIUS_pxycfg_realm" type="text" placeholder="" onchange="update()"><br>
+Active Directory realm used to authenticate users:<input id="freeRADIUS_pxycfg_realm" type="text" placeholder="" onchange="update()"><br>
 Passphrase to your upstream eduroam servers:<input id="freeRADIUS_cdn_prod_passphrase" type="text" placeholder="" 
 onchange="if(this.value.indexOf('#')>-1){alert(PoundSignError);}else{update();}"><br>
 <hr>
