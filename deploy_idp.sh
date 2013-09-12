@@ -304,6 +304,7 @@ deployCustomizations() {
 # /etc/raddb/modules
 	cat ${templatePath}/etc/raddb/modules/mschap.template \
 	|perl -npe "s#fReErAdIuS_rEaLm#${freeRADIUS_realm}#" \
+	|perl -npe "s#PXYCFG_rEaLm#${freeRADIUS_pxycfg_realm}#" \
 	 > /etc/raddb/modules/mschap
 	chgrp radiusd /etc/raddb/modules/mschap
 
@@ -315,7 +316,8 @@ deployCustomizations() {
 
 # /etc/raddb/proxy.conf
 	cat ${templatePath}/etc/raddb/proxy.conf.template \
-	|perl -npe "s#PXYCFG_rEaLm#${freeRADIUS_pxycfg_realm}#" \
+	|perl -npe "s#fReErAdIuS_rEaLm#${freeRADIUS_realm}#" \
+	|perl -npe "s#PrOd_EduRoAm_PhRaSe#${freeRADIUS_cdn_prod_passphrase}#" \
 	> /etc/raddb/proxy.conf
 	chgrp radiusd /etc/raddb/proxy.conf
 

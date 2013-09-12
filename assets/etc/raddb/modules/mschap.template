@@ -87,7 +87,7 @@ if (Stripped-User-Name =~ /^(. )\\(. )/) {
 #Skipping calling ntlm_auth in this fashion and having it right below to reduce clutter.
 #ntlm_auth
 
-ntlm_auth = "/usr/bin/ntlm_auth --request-nt-key --username=%{Stripped-User-Name:-None} --domain=%{%{mschap:NT-Domain}:-fReErAdIuS_rEaLm} --challenge=%{mschap:Challenge:-00} --nt-response=%{mschap:NT-Response:-00}"
+ntlm_auth = "/usr/bin/ntlm_auth --request-nt-key --username=%{Stripped-User-Name:-None} --domain=%{%{mschap:NT-Domain}:-PXYCFG_rEaLm} --challenge=%{mschap:Challenge:-00} --nt-response=%{mschap:NT-Response:-00}"
 
 	# For Apple Server, when running on the same machine as
 	# Open Directory.  It has no effect on other systems.

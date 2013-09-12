@@ -474,7 +474,7 @@ home_server canada-flr-prod1-west {
         type                    = auth+acct
         ipaddr                  = 128.189.4.1 # moose.bc.net
         port                    = 1812
-        secret                  = KqETPP8dSOOSMGrVPLOiJJ3z
+        secret                  = PrOd_EduRoAm_PhRaSe 
 	response_window 	= 20
 	zombie_period 		= 60
 	check_interval		= 30
@@ -484,7 +484,7 @@ home_server canada-flr-prod2-west {
         type                    = auth+acct
         ipaddr                = 142.231.112.1 #grizzley.bc.net
         port                    = 1812
-        secret                  = KqETPP8dSOOSMGrVPLOiJJ3z
+        secret                  = PrOd_EduRoAm_PhRaSe
 	response_window         = 20
         zombie_period           = 60
         check_interval          = 30
@@ -494,7 +494,7 @@ home_server canada-flr-prod3-west {
         type                    = auth+acct
         ipaddr                = 128.189.5.5 #waxwing.bc.net
         port                    = 1812
-        secret                  = KqETPP8dSOOSMGrVPLOiJJ3z
+        secret                  = PrOd_EduRoAm_PhRaSe
 	response_window         = 20
         zombie_period           = 60
         check_interval          = 30
@@ -504,7 +504,7 @@ home_server canada-flr-prod1-east {
         type                    = auth+acct
         ipaddr                  = 205.189.33.100 #prod1-east.eduroam.ca
         port                    = 1812
-        secret                  = KqETPP8dSOOSMGrVPLOiJJ3z
+        secret                  = PrOd_EduRoAm_PhRaSe
 	response_window         = 20
         zombie_period           = 60
         check_interval          = 30
@@ -514,7 +514,7 @@ home_server canada-flr-prod2-east {
         type                    = auth+acct
         ipaddr                  = 205.189.33.101 #prod2-east.eduroam.ca
         port                    = 1812
-        secret                  = KqETPP8dSOOSMGrVPLOiJJ3z
+        secret                  = PrOd_EduRoAm_PhRaSe
 	response_window         = 20
         zombie_period           = 60
         check_interval          = 30
@@ -738,7 +738,7 @@ realm example.com {
 
 # CAF - eduroam, this is your realm for your institution
 
-realm PXYCFG_rEaLm {
+realm fReErAdIuS_rEaLm {
 #	nostrip
 }
 
