@@ -362,10 +362,10 @@ deployCustomizations() {
 
 # construct default certificates including a CSR for this host in case a commercial CA is used
 
-#	WARNING, see the /etc/raddb/README to 'clean' out certificate bits when you run
+#	WARNING, see the /etc/raddb/certs/README to 'clean' out certificate bits when you run
 #		this script respect the protections freeRADIUS put in place to not overwrite certs
 
-	if [ ! -e "/etc/raddb/certs/server/crt" ] 
+	if [  -e "/etc/raddb/certs/server.crt" ] 
 	then
 		echo "bootstrap already run, skipping"
 	else
